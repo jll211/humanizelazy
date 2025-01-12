@@ -1,0 +1,23 @@
+<div id="sidebar">
+    <div class="text-center mb-4">
+        {% if session.get('user', {}).get('photo_url') %}
+            <img src="{{ session['user']['photo_url'] }}" class="profile-image" alt="Profile Picture">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/default-avatar.png') }}" class="profile-image" alt="Default Avatar">
+        {% endif %}
+        <h3 class="username">{{ session.get('user', {}).get('display_name') or session.get('user', {}).get('user_email') }}</h3>
+        <p class="user-title">User</p>
+    </div>
+    
+    <p class="menu-label">Menu</p>
+    <nav class="nav flex-column mb-4">
+        <a class="nav-link {% if request.endpoint == 'routes.home_logged_in_route' %}active{% endif %}" href="{{ url_for('routes.home_logged_in_route') }}">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <form action="{{ url_for('auth.logout_route') }}" method="post" style="display: inline;">
+            <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent" onclick="return confirm('Are you sure you want to logout?')">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </form>
+    </nav>
+</div>

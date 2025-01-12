@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="main-content">
+    <div class="welcome-section text-center mb-5">
+        <h1>Welcome, {{ session.get('user', {}).get('display_name') or session.get('user', {}).get('user_email', '').split('@')[0] }}!</h1>
+        <p class="lead">Your AI companion is ready to assist you</p>
+    </div>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="intro-card text-center">
+                    <h2>Start a New AI Conversation</h2>
+                    <p class="mb-4">Begin your journey with our AI assistant. Get personalized responses and meaningful interactions tailored just for you.</p>
+                    <button class="btn btn-primary btn-lg start-conversation-btn">
+                        <i class="fas fa-comments me-2"></i>New Conversation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

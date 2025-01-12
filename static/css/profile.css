@@ -1,0 +1,105 @@
+.main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+    background-color: var(--background-dark);
+}
+
+.welcome-section h1 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.02em;
+}
+
+.welcome-section .lead {
+    color: var(--text-secondary);
+    opacity: 0.8;
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.intro-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.intro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+}
+
+.intro-card h2 {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.intro-card p {
+    color: var(--text-secondary);
+    opacity: 0.8;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+}
+
+.start-conversation-btn {
+    background: var(--accent-gradient);
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1.1rem;
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-conversation-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    to {
+        left: 100%;
+    }
+}
+
+.start-conversation-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(74, 77, 255, 0.3);
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: var(--spacing-md);
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    .intro-card {
+        padding: var(--spacing-md);
+    }
+}

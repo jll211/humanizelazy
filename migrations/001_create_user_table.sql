@@ -1,0 +1,5 @@
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    profile_picture VARCHAR(255)
+);

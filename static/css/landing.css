@@ -1,0 +1,126 @@
+.landing-content {
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem 3rem;
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+}
+
+.landing-header {
+    padding: 2rem 0;
+}
+
+.landing-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.text-type-selector {
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+.text-type-selector .form-select {
+    background-color: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-radius: 12px;
+    padding: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.text-type-selector .form-select:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.editor-box {
+    background: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.editor-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.editor-box h3 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.editor-box textarea,
+.editor-box .preview-box {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-radius: 16px;
+    resize: none;
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.editor-box textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(74, 77, 255, 0.2);
+}
+
+.word-count {
+    display: block;
+    text-align: right;
+    margin-top: 0.8rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.modal-content {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-radius: 20px;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+@media (max-width: 768px) {
+    .landing-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .editor-box {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .editor-box textarea,
+    .editor-box .preview-box {
+        padding: 1rem;
+    }
+}

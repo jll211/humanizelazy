@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="landing-content">
+    <div class="landing-header text-center">
+        <h1>Humanisier deinen Text Content</h1>
+        <div class="text-type-selector mb-4">
+            <select class="form-select" id="textType">
+                <option value="blog">Blogartikel</option>
+                <option value="social">Social Media Post</option>
+                <option value="academic">Akademischer Text</option>
+                <option value="email">Geschäftliche E-Mail</option>
+            </select>
+        </div>
+        <div class="text-editor-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="editor-box">
+                        <h3>Original Text</h3>
+                        <textarea id="originalText" class="form-control" rows="10" placeholder="Füge hier deinen Text ein..."></textarea>
+                        <small class="text-muted word-count">0/250 Wörter</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="editor-box">
+                        <h3>Humanisierter Text</h3>
+                        <div id="humanizedText" class="form-control preview-box" rows="10">
+                            Hier erscheint dein humanisierter Text...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="humanizeBtn" class="btn btn-primary btn-lg">Text humanisieren</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrieren</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Registriere dich jetzt, um unbegrenzt Texte zu humanisieren!</p>
+                <a href="{{ url_for('routes.home_logged_in_route') }}" class="btn btn-primary w-100">Jetzt registrieren</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const originalText = document.getElementById('originalText');
+    const humanizeBtn = document.getElementById('humanizeBtn');
+    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    let hasUsedFreeTransformation = false;
+
+    function countWords(str) {
+        return str.trim().split(/\s+/).length;
+    }
+
+    originalText.addEventListener('input', function() {
+        const words = countWords(this.value);
+        document.querySelector('.word-count').textContent = `${words}/250 Wörter`;
+        
+        if (words > 250) {
+            this.value = this.value.split(/\s+/).slice(0, 250).join(' ');
+        }
+    });
+
+    humanizeBtn.addEventListener('click', async function() {
+        if (hasUsedFreeTransformation) {
+            loginModal.show();
+        } else {
+            const text = originalText.value;
+            const textType = document.getElementById('textType').value;
+            const humanizedTextElement = document.getElementById('humanizedText');
+            
+            try {
+                humanizedTextElement.textContent = 'Generiere Text...';
+                
+                const response = await fetch('/api/humanize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        text_type: textType
+                    })
+                });
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                while (true) {
+                    const {value, done} = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const data = JSON.parse(chunk.replace('data: ', ''));
+                    
+                    if (data.error) {
+                        humanizedTextElement.textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+                    } else {
+                        humanizedTextElement.textContent = data.humanized_text;
+                        hasUsedFreeTransformation = true;
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                humanizedTextElement.textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

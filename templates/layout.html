@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    {% if with_sidebar %}
+        <nav class="navbar navbar-dark bg-dark d-lg-none">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            </div>
+        </nav>
+        
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                {% include '_sidebar.html' %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <div class="d-flex">
+        {% if with_sidebar %}
+            <div class="d-none d-lg-block">
+                {% include '_sidebar.html' %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+    
+    <div class="position-fixed top-0 end-0 p-3 d-none d-lg-block">
+        {% if session.get('user') %}
+            <form action="{{ url_for('auth.logout_route') }}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Möchtest du dich wirklich abmelden?')">
+                    <i class="fas fa-sign-out-alt"></i> Abmelden
+                </button>
+            </form>
+        {% else %}
+            <a href="{{ url_for('routes.home_logged_in_route') }}" class="btn btn-outline-primary me-2">
+                <i class="fas fa-user-plus"></i> Registrieren
+            </a>
+            <a href="{{ url_for('routes.home_logged_in_route') }}" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Einloggen
+            </a>
+        {% endif %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+:root {
+    --primary-color: #FFFFFF;
+    --accent-color: #4A4DFF;
+    --accent-gradient: linear-gradient(135deg, #4A4DFF, #9702FF);
+    --background-dark: #121212;
+    --card-bg: rgba(30, 30, 30, 0.8);
+    --text-primary: #FFFFFF;
+    --text-secondary: #E0E0E0;
+    --sidebar-width: 280px;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+}
+
+body {
+    background-color: var(--background-dark);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.6;
+}
+
+#sidebar {
+    width: var(--sidebar-width);
+    min-height: 100vh;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    padding: var(--spacing-lg);
+    z-index: 1030;
+    transition: all 0.3s ease;
+}
+
+.offcanvas #sidebar {
+    position: static;
+    width: 100%;
+    min-height: auto;
+    border: none;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: var(--spacing-xs) 0;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--accent-gradient);
+    color: var(--text-primary);
+    opacity: 1;
+}
+
+.nav-link i {
+    width: 24px;
+    margin-right: var(--spacing-sm);
+}
+
+.menu-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    margin-bottom: var(--spacing-md);
+}
+
+.username {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: var(--spacing-xs) 0;
+    color: var(--text-primary);
+}
+
+.user-title {
+    font-size: 0.9rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        width: 100%;
+        position: relative;
+        min-height: auto;
+    }
+}
